@@ -3,17 +3,132 @@
 //
 #include "Pics2Pic.h"
 #include "BmpFile.h"
+#include <malloc.h>
 extern Pics2Pic pic;
+extern BmpImage bmp;
 Pics2Pic::Pics2Pic()
 {
 };
-void Pics2Pic::AddPicsSrc(BmpImage::IMG* src,int key)
+BmpImage::IMG* Pics2Pic::CreatePicSrc()
 {
-    PicsSrc.insert(pair<BmpImage::IMG*, int>(src, key));
+    int pics_num=PicHeight/PicsHeight;
+    BmpImage::IMG *PicOut=(BmpImage::IMG *)malloc(sizeof(BmpImage::IMG));
+    unsigned char* imgoutdata=(unsigned char*)malloc(3*sizeof(unsigned char)*PicHeight*PicWidth);
+    //int RGB[3]= {0};
+    for(int i=0; i<pics_num; i++)
+    {
+        for(int j=0; j<pics_num; j++)
+        {
+            /***/
+            BmpImage::IMG img;
+            //int rgb;
+            unsigned char* imgdata=(unsigned char*)malloc(3*sizeof(unsigned char)*PicsHeight*PicsWidth);
+            for(int k=0; k<PicsHeight; k++)
+            {
+                for(int l=0; l<PicsHeight; l++)
+                {
+                    imgdata[k*3*PicsHeight+l*3+0]= Pic.imgData[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+0];//£¿
+                    imgdata[k*3*PicsHeight+l*3+1]= Pic.imgData[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+1];
+                    imgdata[k*3*PicsHeight+l*3+2]= Pic.imgData[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+2];
+                }
+            }
+            img.imgData=imgdata;
+            img.height=PicsHeight;
+            img.width=PicsWidth;
+            bmp.ScanBmpColor(&img);
+            //cout<<bmp.ColorWhich(&img)<<endl;
+            if(pic.FindPicS(bmp.ColorWhich(&img))==NULL)
+            {
+                cout<<"err"<<endl;
+                //return NULL;
+            }
+            BmpImage::IMG* imgsrc = pic.FindPicS(bmp.ColorWhich(&img));
+            //cout<<bmp.ColorWhich(imgsrc)<<endl;
+            free(imgdata);
+            for(int k=0; k<PicsHeight; k++)
+            {
+                for(int l=0; l<PicsHeight; l++)
+                {
+                    //cout<<"?"<<endl;
+                    imgoutdata[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+0]=imgsrc->imgData[k*3*PicsHeight+l*3+0];//£¿
+                    imgoutdata[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+0]=imgsrc->imgData[k*3*PicsHeight+l*3+1];
+                    imgoutdata[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+0]=imgsrc->imgData[k*3*PicsHeight+l*3+2];
+                }
+            }
+        }
+    }
+    //printf("\n%d/%d/%d\n",RGB[2],RGB[1],RGB[0]);
+    PicOut->imgData=imgoutdata;
+    PicOut->height = PicHeight;
+    PicOut->width = PicWidth;
+    return PicOut;
 };
-BmpImage::IMG* Pics2Pic::CreatePicSrc(){
-    cout<<Pic.height<<endl;
+void Pics2Pic::InitPics()
+{
+    for(int i=0; i<6*6*6; i++)
+    {
+        PicsSrc[i]= NULL;
+    }
+}
+
+void Pics2Pic::AddPicsSrc(int key,BmpImage::IMG* src)
+{
+    PicsSrc[key]=src;
 };
+BmpImage::IMG* Pics2Pic::FindPicS(int key)
+{
+    if(PicsSrc[key]!=NULL)
+    {
+        return PicsSrc[key];
+    }
+    else
+    {
+        int k=key;
+        int time=0;
+        while(1)
+        {
+            time++;
+            if(time==1)
+            {
+                for(int i=k+1; i<k+2&&i<6*6*6; i++)
+                {
+                    if(PicsSrc[i]!=NULL)
+                    {
+                        return PicsSrc[i];
+                    }
+                }
+                for(int i=k-1; i>k-2&&i>=0; i--)
+                {
+                    if(PicsSrc[i]!=NULL)
+                    {
+                        return PicsSrc[i];
+                    }
+                }
+            }
+            //**********************
+            k=key;
+            k=k-1*time;
+            for(int i=k-1; i>k-2&&i>=0&&k>=0&&k<6*6*6; i--)
+            {
+                if(PicsSrc[i]!=NULL)
+                {
+                    return PicsSrc[i];
+                }
+            }
+            k=key;
+            k=k+1*time;
+            for(int i=k+1; i<k+2&&i<6*6*6&&k>=0&&k<6*6*6; i++)
+            {
+                if(PicsSrc[i]!=NULL)
+                {
+                    return PicsSrc[i];
+                }
+            }
+        }
+    }
+    return NULL;
+};
+
 void Pics2Pic::AddPic(BmpImage::IMG * PIC)
 {
     Pic.height=PIC->height;
@@ -22,73 +137,16 @@ void Pics2Pic::AddPic(BmpImage::IMG * PIC)
     Pic.RGB[0]=PIC->RGB[0];
     Pic.RGB[1]=PIC->RGB[1];
     Pic.RGB[2]=PIC->RGB[2];
+    free(PIC);
 };
-bool Pics2Pic::StartCreatePic(BmpImage::IMG* bmpImg)
+void Pics2Pic::PicSrcSize()
 {
-    FILE *PicFile;
-    BmpImage::HEADER bmpFileHeader;
-    BmpImage::INFOHEADER bmpInfoHeader;
-    int width = 0;
-    int height = 0;
-    int step = 0;
-    int channels = 1;
-    int i, j;
-    int offset;
-    unsigned char point = '\0';
-    width = bmpImg->width;
-    height = bmpImg->height;
-    channels = 3;
-    step = width * channels;
-    PicFile = fopen("out/out.bmp", "wb");
-    if (!PicFile)
+    int i=0;
+    while(i++<216)
     {
-        return false;
-    }
-    bmpFileHeader.bfType = 0x4D42;//BM
-    //Byte Fill
-    offset = step%4;
-    if (offset != 0)
-    {
-        offset=4-offset;
-        step += 4-offset;
-    }
-    bmpFileHeader.Size = height*step + 54;
-    bmpFileHeader.bfReserved1 = 0;
-    bmpFileHeader.bfReserved2 = 0;
-    bmpFileHeader.bfOffBits = 54;
-    fwrite(&bmpFileHeader, sizeof(BmpImage::HEADER), 1, PicFile);
-    bmpInfoHeader.Size = 40;
-    bmpInfoHeader.width = width;
-    bmpInfoHeader.height = height;
-    bmpInfoHeader.biPlanes = 1;
-    bmpInfoHeader.bits = 24;
-    bmpInfoHeader.biCompression = 0;
-    bmpInfoHeader.imagesize = height*step;
-    bmpInfoHeader.biXPelsPerMeter = 0;
-    bmpInfoHeader.biYPelsPerMeter = 0;
-    bmpInfoHeader.biClrUsed = 0;
-    bmpInfoHeader.biClrImportant = 0;
-    fwrite(&bmpInfoHeader, sizeof(BmpImage::INFOHEADER), 1, PicFile);
-    for (i=bmpImg->height-1; i>-1; i--)
-    {
-        for (j=0; j<bmpImg->width; j++)
+        if(PicsSrc[i]!=NULL)
         {
-            point = bmpImg->imgData[i*width*3+j*3+0];
-            fwrite(&point, sizeof(unsigned char), 1, PicFile);
-            point = bmpImg->imgData[i*width*3+j*3+1];
-            fwrite(&point, sizeof(unsigned char), 1, PicFile);
-            point = bmpImg->imgData[i*width*3+j*3+2];
-            fwrite(&point, sizeof(unsigned char), 1, PicFile);
-        }
-        if (offset!=0)
-        {
-            for (j=0; j<offset; j++)
-            {
-                point = 0;
-                fwrite(&point, sizeof(unsigned char), 1, PicFile);
-            }
+            printf("%d|",i);
         }
     }
-    fclose(PicFile);
-    return true;
-}
+};

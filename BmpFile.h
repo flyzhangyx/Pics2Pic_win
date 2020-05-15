@@ -19,13 +19,20 @@ public:
         unsigned char * imgData;
         int RGB[3];//ÑÕÉ«Õ¼±È255
     } IMG;
+    int color_table[6][6][6];
     BmpImage();
     void ReadPics(char* path);
-    void ReadPic(char* path);
+    bool ReadPic(char* path);
     int ScanBmpColor(IMG* src);
     IMG* Read1Pic(FILE * PicFile);
     IMG* imgscale(IMG* bmpImg,double dy,double dx);
     void EnhanceColor(IMG* src,int RGB,int exp);
+    bool StartCreatePic(IMG* bmpImg,char *path);
+    int ColorWhich(IMG* bmpImg);
+    int bi_search(const int arr[], int start, int last, int key);
+    void InitColorTable();
+
+
 #pragma pack(1)
     typedef struct
     {
