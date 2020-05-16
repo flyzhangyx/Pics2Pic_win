@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1589542276 source:h:\2017210415\pics2pic_win\main.cpp
+1589647070 source:h:\2017210415\pics2pic_win\main.cpp
 	"BmpFile.h"
 	"Pics2Pic.h"
 
-1589525038 h:\2017210415\pics2pic_win\bmpfile.h
+1589646662 h:\2017210415\pics2pic_win\bmpfile.h
 	<map>
 	<iostream>
 	<fstream>
@@ -12,7 +12,7 @@
 	<windows.h>
 	<vector>
 
-1589529110 h:\2017210415\pics2pic_win\pics2pic.h
+1589646650 h:\2017210415\pics2pic_win\pics2pic.h
 	<map>
 	<iostream>
 	<fstream>
@@ -22,12 +22,12 @@
 	<vector>
 	"BmpFile.h"
 
-1589559080 source:h:\2017210415\pics2pic_win\pics2pic.cpp
+1589648354 source:h:\2017210415\pics2pic_win\pics2pic.cpp
 	"Pics2Pic.h"
 	"BmpFile.h"
 	<malloc.h>
 
-1589558753 source:h:\2017210415\pics2pic_win\bmpfile.cpp
+1589648301 source:h:\2017210415\pics2pic_win\bmpfile.cpp
 	"BmpFile.h"
 	"Pics2Pic.h"
 	<malloc.h>

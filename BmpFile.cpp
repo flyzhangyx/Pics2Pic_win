@@ -18,7 +18,7 @@ void BmpImage::EnhanceColor(IMG* src,int RGB,int exp)
     for(int i=0; i<src->height; i++)
         for(int j=0; j<src->width; j++)
         {
-            if((int)src->imgData[3*i*src->height+3*j+RGB]<255-exp)
+            if((int)src->imgData[3*i*src->height+3*j+RGB]<255-exp&&(int)src->imgData[3*i*src->height+3*j+RGB]>-1*exp)
             {
                 src->imgData[3*i*src->height+3*j+RGB]=src->imgData[3*i*src->height+3*j+RGB]+exp;
             }
@@ -33,7 +33,7 @@ void BmpImage::EnhanceColor(IMG* src,int RGB,int exp)
                         time=0;
                         break;
                     }
-                    if((int)src->imgData[3*i*src->height+3*j+RGB]<255-exp)
+                    if((int)src->imgData[3*i*src->height+3*j+RGB]<255-exp&&(int)src->imgData[3*i*src->height+3*j+RGB]>-1*exp)
                     {
                         src->imgData[3*i*src->height+3*j+RGB]=src->imgData[3*i*src->height+3*j+RGB]+exp;
                         break;
@@ -68,11 +68,11 @@ int BmpImage::ScanBmpColor(IMG* src)
 };
 void BmpImage::InitColorTable(){
     int color_num=0;
-    for(int i1=0;i1<6;i1++)//init
+    for(int i1=0;i1<12;i1++)//init
     {
-        for(int i2=0;i2<6;i2++)
+        for(int i2=0;i2<12;i2++)
         {
-            for(int i3=0;i3<6;i3++)
+            for(int i3=0;i3<12;i3++)
             {
                 color_table[i1][i2][i3]=color_num;
                 color_num++;
@@ -83,23 +83,27 @@ void BmpImage::InitColorTable(){
 int BmpImage::ColorWhich(IMG* bmpImg)
 {
     //共6*6*6种颜色
-    int RGB[7]= {0/*1*/,42/*2*/,83,126,169,212,255};
+    int RGB[13]= {0/*1*/,21/*2*/,42,63,84,105,126,147,168,189,210,231,255};
     /*if(bmpImg->RGB[2]>255)
     {
         cout<<bmpImg->RGB[2]<<endl;
     }
     if(bmpImg->RGB[1]>255)
-    {
+    {src->
         cout<<bmpImg->RGB[1]<<endl;
     }
     if(bmpImg->RGB[0]>255)
-    {
+    {src->
         cout<<bmpImg->RGB[0]<<endl;
     }*/
-    return color_table[bi_search(RGB,0,6,bmpImg->RGB[2])][bi_search(RGB,0,6,bmpImg->RGB[1])][bi_search(RGB,0,6,bmpImg->RGB[0])];
+    return color_table[bi_search(RGB,0,12,bmpImg->RGB[2])-1][bi_search(RGB,0,12,bmpImg->RGB[1])-1][bi_search(RGB,0,12,bmpImg->RGB[0])-1];
 };
 int BmpImage::bi_search(const int arr[], int start, int last, int key)
 {
+    if(key==0)
+    {
+        key++;
+    }
     if (start > last)
         return start;
     int mid = start + (last - start) / 2;    //直接平均可能會溢位，所以用此算法
@@ -139,14 +143,17 @@ void BmpImage::ReadPics(char* path)
             strcpy(path1,"out/");
             strcat(path1,fileinfo.name);
             /***/
+            cout<<fileinfo.name;
+            cout<<":";
             double y_scale= (double)pic.PicsHeight/imgSrcData->height;
             double x_scale= (double)pic.PicsWidth/imgSrcData->width;
             IMG* img=imgscale(imgSrcData,x_scale,y_scale);//Already malloc
-            EnhanceColor(img,ScanBmpColor(img),50);
+            EnhanceColor(img,ScanBmpColor(img),30);
             /***/
-            //StartCreatePic(img,path1);
+            StartCreatePic(img,path1);
             free(path1);
             /***/
+            cout<<ColorWhich(img)<<endl;
             pic.AddPicsSrc(ColorWhich(img),img);
         }
     }
@@ -169,14 +176,17 @@ void BmpImage::ReadPics(char* path)
             strcpy(path1,"out/");
             strcat(path1,fileinfo.name);
             /***/
+            cout<<fileinfo.name;
+            cout<<":";
             double y_scale= (double)pic.PicsHeight/imgSrcData->height;
             double x_scale= (double)pic.PicsWidth/imgSrcData->width;
             IMG* img=imgscale(imgSrcData,x_scale,y_scale);
-            EnhanceColor(img,ScanBmpColor(img),50);
+            EnhanceColor(img,ScanBmpColor(img),30);
             /***/
-            //StartCreatePic(img,path1);
+            StartCreatePic(img,path1);
             free(path1);
             /***/
+            cout<<ColorWhich(img)<<endl;
             pic.AddPicsSrc(ColorWhich(img),img);
         }
     }

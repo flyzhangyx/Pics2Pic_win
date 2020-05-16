@@ -19,7 +19,7 @@ public:
         unsigned char * imgData;
         int RGB[3];//ÑÕÉ«Õ¼±È255
     } IMG;
-    int color_table[6][6][6];
+    int color_table[12][12][12];
     BmpImage();
     void ReadPics(char* path);
     bool ReadPic(char* path);

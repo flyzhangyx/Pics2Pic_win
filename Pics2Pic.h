@@ -26,7 +26,7 @@ public:
     int PicWidth,PicHeight;
 private:
     BmpImage::IMG Pic;
-    BmpImage::IMG* PicsSrc[6*6*6];
+    BmpImage::IMG* PicsSrc[12*12*12];
 };
 
 #endif // PICS2PIC_H_INCLUDED

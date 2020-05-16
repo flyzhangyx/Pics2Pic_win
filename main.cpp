@@ -28,6 +28,7 @@ int main()
         pic.PicSrcSize();
         BmpImage::IMG* out=pic.CreatePicSrc();
         bmp.StartCreatePic(out,(char*)"out/out.bmp");
+        free(out);
         cout<<"本次输出完毕!"<<endl;
         system("pause");
         system("cls");

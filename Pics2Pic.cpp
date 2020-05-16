@@ -36,14 +36,15 @@ BmpImage::IMG* Pics2Pic::CreatePicSrc()
             img.height=PicsHeight;
             img.width=PicsWidth;
             bmp.ScanBmpColor(&img);
-            //cout<<bmp.ColorWhich(&img)<<endl;
             if(pic.FindPicS(bmp.ColorWhich(&img))==NULL)
             {
                 cout<<"err"<<endl;
-                //return NULL;
+                system("pause");
+                exit(-1);
             }
             BmpImage::IMG* imgsrc = pic.FindPicS(bmp.ColorWhich(&img));
             //cout<<bmp.ColorWhich(imgsrc)<<endl;
+            //bmp.StartCreatePic(imgsrc,(char*)"out/out1.bmp");
             free(imgdata);
             for(int k=0; k<PicsHeight; k++)
             {
@@ -51,8 +52,8 @@ BmpImage::IMG* Pics2Pic::CreatePicSrc()
                 {
                     //cout<<"?"<<endl;
                     imgoutdata[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+0]=imgsrc->imgData[k*3*PicsHeight+l*3+0];//£¿
-                    imgoutdata[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+0]=imgsrc->imgData[k*3*PicsHeight+l*3+1];
-                    imgoutdata[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+0]=imgsrc->imgData[k*3*PicsHeight+l*3+2];
+                    imgoutdata[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+1]=imgsrc->imgData[k*3*PicsHeight+l*3+1];
+                    imgoutdata[3*i*PicsHeight*PicWidth+j*3*PicsHeight+k*3*PicWidth+l*3+2]=imgsrc->imgData[k*3*PicsHeight+l*3+2];
                 }
             }
         }
@@ -65,7 +66,7 @@ BmpImage::IMG* Pics2Pic::CreatePicSrc()
 };
 void Pics2Pic::InitPics()
 {
-    for(int i=0; i<6*6*6; i++)
+    for(int i=0; i<12*12*12; i++)
     {
         PicsSrc[i]= NULL;
     }
@@ -90,7 +91,7 @@ BmpImage::IMG* Pics2Pic::FindPicS(int key)
             time++;
             if(time==1)
             {
-                for(int i=k+1; i<k+2&&i<6*6*6; i++)
+                for(int i=k+1; i<k+2&&i<12*12*12; i++)
                 {
                     if(PicsSrc[i]!=NULL)
                     {
@@ -108,7 +109,7 @@ BmpImage::IMG* Pics2Pic::FindPicS(int key)
             //**********************
             k=key;
             k=k-1*time;
-            for(int i=k-1; i>k-2&&i>=0&&k>=0&&k<6*6*6; i--)
+            for(int i=k-1; i>k-2&&i>=0&&k>=0&&k<12*12*12; i--)
             {
                 if(PicsSrc[i]!=NULL)
                 {
@@ -117,7 +118,7 @@ BmpImage::IMG* Pics2Pic::FindPicS(int key)
             }
             k=key;
             k=k+1*time;
-            for(int i=k+1; i<k+2&&i<6*6*6&&k>=0&&k<6*6*6; i++)
+            for(int i=k+1; i<k+2&&i<12*12*12&&k>=0&&k<12*12*12; i++)
             {
                 if(PicsSrc[i]!=NULL)
                 {
@@ -142,7 +143,7 @@ void Pics2Pic::AddPic(BmpImage::IMG * PIC)
 void Pics2Pic::PicSrcSize()
 {
     int i=0;
-    while(i++<216)
+    while(i++<12*12*12)
     {
         if(PicsSrc[i]!=NULL)
         {
