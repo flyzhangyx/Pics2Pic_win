@@ -12,9 +12,15 @@ Warning：①[子图]与要输出的[样图]需要是‘BMP’格式，建议使
          ③建议上面第二次输入的数据值小于13000（本来在前面的版本中可以随意，只要你内存够大，但是后面更改了逻辑之后出现FC，也就懒得改了//‘我编译器mingw32，malloc不能太大超过32位限制，改成64位编译器build就行：https://www.cnblogs.com/lexyao/p/11629467.html’
          ⑤建议[子图]尽可能的多，尽可能的让它们的RGB分散，才能让原图更加鲜活。
 由下面的几张图生成最后的图：
+
 ![1.jpg](http://pic.flyzhangyx.com/IMG_20200310_153914~1.bmp)
+
 ![2.jpg](http://pic.flyzhangyx.com/hdImg_6a2001b3089c3c52cb6918cd142252bb15848601546.bmp)
+
 ![3.jpg](http://pic.flyzhangyx.com/https___img01_sogoucdn_com_app_a_200678_148163351.bmp)
+
 ![4.jpg](http://pic.flyzhangyx.com/psbe%20%281%29.bmp)
+
 效果图：
+
 ![out.jpg](http://pic.flyzhangyx.com/out.jpg)
