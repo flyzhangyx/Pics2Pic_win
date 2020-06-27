@@ -19,16 +19,7 @@ Warning：①[子图]与要输出的[样图]需要是‘BMP’格式，建议使
 
 2：源子图：
 
-![1.jpg](http://pic.flyzhangyx.com/IMG_20200310_153914~1.bmp)
-
-![2.jpg](http://pic.flyzhangyx.com/hdImg_6a2001b3089c3c52cb6918cd142252bb15848601546.bmp)
-
-![3.jpg](http://pic.flyzhangyx.com/https___img01_sogoucdn_com_app_a_200678_148163351.bmp)
-
-![4.jpg](http://pic.flyzhangyx.com/psbe.bmp)
-
-![5.jpg](http://pic.flyzhangyx.com/psbe%20%281%29.bmp)
-
+![1.jpg](http://pic.flyzhangyx.com/IMG_20200310_153914~1.bmp) ![2.jpg](http://pic.flyzhangyx.com/hdImg_6a2001b3089c3c52cb6918cd142252bb15848601546.bmp) ![3.jpg](http://pic.flyzhangyx.com/https___img01_sogoucdn_com_app_a_200678_148163351.bmp) ![4.jpg](http://pic.flyzhangyx.com/psbe.bmp) ![5.jpg](http://pic.flyzhangyx.com/psbe%20%281%29.bmp)
 
 3：效果图：
 
