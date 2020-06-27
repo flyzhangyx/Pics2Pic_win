@@ -13,4 +13,4 @@ Warning：①[子图]与要输出的[样图]需要是‘BMP’格式，建议使
          ⑤建议[子图]尽可能的多，尽可能的让它们的RGB分散，才能让原图更加鲜活。
 
 效果图：
-![out.jpg][http://qclclkxsc.bkt.clouddn.com/out~1.jpg?e=1593275809&token=YnV0x5mq1cnXEqTFa2MFbT25u2w-NAqK_3B9onRN:d8UY32Tc830DwzTpAAG2UMY4tBA=]
+![out.jpg](http://qclclkxsc.bkt.clouddn.com/out~1.jpg?e=1593275809&token=YnV0x5mq1cnXEqTFa2MFbT25u2w-NAqK_3B9onRN:d8UY32Tc830DwzTpAAG2UMY4tBA=)
