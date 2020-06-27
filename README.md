@@ -25,4 +25,4 @@ Warning：①[子图]与要输出的[样图]需要是‘BMP’格式，建议使
 
 ![out.jpg](http://pic.flyzhangyx.com/out.jpg)
 
-原图地址：http://flyzhangyx.com/out.bmp  (图片比较大)
+原图地址：http://flyzhangyx.com/out.bmp  (图片比较大，个人站点，下载较慢)
