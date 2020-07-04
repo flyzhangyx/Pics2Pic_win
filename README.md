@@ -15,15 +15,15 @@
  ```
 ## 运行示意
 
-1：目标图：
+1.[样图]:
 
 ![目标图.jpg](http://pic.flyzhangyx.com/input.bmp)
 
-2：源子图：
+2.[子图]:
 
 ![1.jpg](http://pic.flyzhangyx.com/IMG_20200310_153914~1.bmp) ![2.jpg](http://pic.flyzhangyx.com/hdImg_6a2001b3089c3c52cb6918cd142252bb15848601546.bmp) ![3.jpg](http://pic.flyzhangyx.com/https___img01_sogoucdn_com_app_a_200678_148163351.bmp) ![4.jpg](http://pic.flyzhangyx.com/psbe.bmp) ![5.jpg](http://pic.flyzhangyx.com/psbe%20%281%29.bmp) ![6.jpg](http://pic.flyzhangyx.com/psbe%20%281%291.bmp)
 
-3：效果图：
+3.[效果图]:
 
 ![out.jpg](http://pic.flyzhangyx.com/out.jpg)
 
